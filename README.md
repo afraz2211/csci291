@@ -1,12 +1,28 @@
-\#include <stdio.h>
+
+#include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 int password = 1234;  
-int Min = 5;    
-float total_amount = 0.0;  
+const int Min = 5;    
+double total_amount = 0.0;  
+
+
+float itemAPrice = 1.0;
+float itemBPrice = 1.5;
+float itemCPrice = 2.0;
+int itemAQuantity = 10;
+int itemBQuantity = 10;
+int itemCQuantity = 10;
+
 
 void displayMenu();
+void purchaseItem();
 void adminMode();
+void replenishItems();
+void changeItemPrices();
+void displayTotalSale();
+void displayItemAvailability();
 
 int main() {
     int choice;
@@ -37,6 +53,9 @@ void displayMenu() {
     printf("3. Exit\n");
 }
 
+void purchaseItem() {
+	
+}
 
 void adminMode() {
     int admin_pass;
@@ -44,7 +63,7 @@ void adminMode() {
     scanf("%d", &admin_pass);
 
     if (admin_pass != password) {
-        printf("Incorrect admin password.\n");
+        printf("Incorrect admin password. Access denied.\n");
         return;
     }
 
@@ -60,6 +79,44 @@ void adminMode() {
         printf("Enter your choice: ");
         scanf("%d", &admin_choice);
 
+        if (admin_choice == 1) {
+            replenishItems();
+        } else if (admin_choice == 2) {
+            changeItemPrices();
+        } else if (admin_choice == 3) {
+            displayTotalSale();
+        } else if (admin_choice == 4) {
+            displayItemAvailability();
+        } else if (admin_choice == 0) {
+            return;
+        } else {
+            printf("Invalid choice. Please try again.\n");
+        }
     }
+}
+
+void replenishItems() {
+
+}
+
+void changeItemPrices() {
+    printf("Enter the new price for item A: ");
+    scanf("%lf", &itemAPrice);
+    printf("Enter the new price for item B: ");
+    scanf("%lf", &itemBPrice);
+    printf("Enter the new price for item C: ");
+    scanf("%lf", &itemCPrice);
+}
+
+void displayTotalSale() {
+    printf("Total Sales Amount: $%.2lf\n", total_amount);
+    total_amount = 0.0;
+    printf("Total Sales Amount reset to $%.2lf\n", total_amount);
+}
+
+void displayItemAvailability() {
+    printf("Item A: Quantity %d\n", itemAQuantity);
+    printf("Item B: Quantity %d\n", itemBQuantity);
+    printf("Item C: Quantity %d\n", itemCQuantity);
 }
 
