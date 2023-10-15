@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int password = 1234;  
-const int Min = 5;    
-double total_amount = 0.0;  
+int password = 1234;
+const int Min = 5;
+double total_amount = 0.0;
 
 
 float itemAPrice = 1.0;
@@ -23,6 +23,7 @@ void replenishItems();
 void changeItemPrices();
 void displayTotalSale();
 void displayItemAvailability();
+
 
 int main() {
     int choice;
@@ -54,8 +55,86 @@ void displayMenu() {
 }
 
 void purchaseItem() {
+	char itemNum;
+	char answer;
+	float coin;
+	float tempItem;
+	char choice;
+	fflush(stdin);
+	// printing items 
+	printf("(A)  %.2f \n",itemAPrice);
+	printf("(B)  %.2f \n", itemBPrice);
+	printf("(C)  %.2f \n", itemCPrice);
+	printf("choose your item:...\n");
+	scanf("%c",&itemNum);
 	
+fflush(stdin);
+	if ((itemNum >='A') &&(itemNum <'D')) {
+		if(itemNum == 'A'){
+			printf("You choose item A and price %f , pls confirm (y/n)\n",itemAPrice);
+				scanf("%c",&answer);
+			tempItem=itemAPrice;
+			
+		}
+			if(itemNum == 'B'){
+			printf("You choose item B and price %f , pls confirm (y/n)\n",itemBPrice);
+				scanf("%c",&answer);
+			tempItem=itemBPrice;
+		}
+			if(itemNum == 'C'){
+			printf("You choose item C and price %f , pls confirm (y/n)\n",itemCPrice);
+				scanf("%c",&answer);
+			tempItem=itemCPrice;
+		}
+	
+		if(answer=='y'){
+			printf("insert the coins(1, 0.5, 0.25)\n");
+			while(tempItem > 0){
+				fflush(stdin);
+				scanf("%f",&coin);
+				if (coin  > 1.0){
+					printf("Entered wrong  demonomiations ,press x to cancel else c to continue \n");
+					fflush(stdin);
+					scanf("%c",&choice );
+					if (choice == 'x'){
+						purchaseItem();
+						break;
+					} 
+					if(choice  == 'c'){
+						continue;
+					}
+				}else {
+					tempItem = tempItem - coin ;
+				}
+			}
+			if(tempItem == 0){
+				printf("Thank you for purchasing\n");
+				printf("thank you for having %c", itemNum);
+				if(itemNum == 'A'){
+					itemAQuantity -= 1;
+					total_amount += itemAPrice;
+				}
+				if(itemNum == 'B'){
+					itemBQuantity-= 1;
+					total_amount += itemBPrice;
+				}
+				if(itemNum == 'C'){ 
+					itemCQuantity -= 1;
+					total_amount += itemCPrice;
+				}
+			}
+		}
+			
+		
+	}
+	else{
+		printf("cancelling the purchase\n");
+	}
+	
+
 }
+
+
 
 void adminMode() {
     int admin_pass;
@@ -96,7 +175,9 @@ void adminMode() {
 }
 
 void replenishItems() {
-
+	itemAQuantity = rand()% 40 ;
+	itemAQuantity = rand()% 40 ;
+	itemAQuantity = rand()% 40 ;
 }
 
 void changeItemPrices() {
